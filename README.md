@@ -4,7 +4,7 @@ Provides a way to easily format a selection of a DataObject's fields used in a c
 
 # Installation (with composer)
 
-	$ composer require heyday/silverstripe-flexibledataformatter:~0.1
+	$ composer require heyday/silverstripe-flexibledataformatters:~0.1
 
 # Usage
 
