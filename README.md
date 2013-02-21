@@ -46,8 +46,8 @@ Install dev dependencies from within module:
 
 Use standard `phpunit` command
 
-	silverstripe-flexibledataformatters/$ phpunit
+	silverstripe-flexibledataformatters/ $ phpunit
 
 If you don't have `phpunit` installed globally:
 
-	silverstripe-flexibledataformatters/$ vendor/bin/phpunit
+	silverstripe-flexibledataformatters/ $ vendor/bin/phpunit
