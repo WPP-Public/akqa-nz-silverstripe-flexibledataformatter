@@ -9,7 +9,9 @@ if (!file_exists(BASE_PATH . '/vendor/autoload.php')) {
 
 $loader = require BASE_PATH . '/vendor/autoload.php';
 
-$loader->addClassMap(Composer\Autoload\ClassMapGenerator::createMap(BASE_PATH . '/sapphire'));
-$loader->addClassMap(Composer\Autoload\ClassMapGenerator::createMap(BASE_PATH . '/code'));
+use Symfony\Component\ClassLoader\ClassMapGenerator;
+
+$loader->addClassMap(ClassMapGenerator::createMap(BASE_PATH . '/sapphire'));
+$loader->addClassMap(ClassMapGenerator::createMap(BASE_PATH . '/code'));
 
 require_once BASE_PATH . '/sapphire/core/Core.php';

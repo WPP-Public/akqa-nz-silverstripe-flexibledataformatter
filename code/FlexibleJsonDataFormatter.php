@@ -1,26 +1,18 @@
 <?php
 
+/**
+ * Class FlexibleJsonDataFormatter
+ */
 class FlexibleJsonDataFormatter extends FlexibleDataFormatter
 {
+    /**
+     * @var bool
+     */
     protected $jsonService = false;
-
-    protected $outputContentType = 'application/json';
-
-    public function supportedExtensions()
-    {
-        return array(
-            'json'
-        );
-    }
-
-    public function supportedMimeTypes()
-    {
-        return array(
-            'application/json',
-            'text/x-json'
-        );
-    }
-
+    /**
+     * @param array $arr
+     * @return string
+     */
     protected function format(array $arr)
     {
         if (function_exists('json_encode')) {
@@ -29,7 +21,10 @@ class FlexibleJsonDataFormatter extends FlexibleDataFormatter
             return $this->getJsonService()->encode($arr);
         }
     }
-
+    /**
+     * @param $json
+     * @return mixed
+     */
     public function convertStringToArray($json)
     {
         if (function_exists('json_decode')) {
@@ -38,7 +33,9 @@ class FlexibleJsonDataFormatter extends FlexibleDataFormatter
             return $this->getJsonService()->decode($json);
         }
     }
-
+    /**
+     * @return bool|Services_JSON
+     */
     protected function getJsonService()
     {
         if (!$this->jsonService) {

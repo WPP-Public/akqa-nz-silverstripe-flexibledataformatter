@@ -1,7 +1,15 @@
 <?php
 
+/**
+ * Class FlexibleDataFormatter
+ */
 abstract class FlexibleDataFormatter
 {
+    /**
+     * @param FlexibleDataFormatterInterface $obj
+     * @param null                           $readableFields
+     * @return array|bool
+     */
     public function convertDataObjectToArray(
         FlexibleDataFormatterInterface $obj,
         $readableFields = null
@@ -82,7 +90,11 @@ abstract class FlexibleDataFormatter
             return false;
         }
     }
-
+    /**
+     * @param FlexibleDataFormatterInterface $obj
+     * @param null                           $readableFields
+     * @return bool
+     */
     public function convertDataObject(
         FlexibleDataFormatterInterface $obj,
         $readableFields = null
@@ -94,9 +106,13 @@ abstract class FlexibleDataFormatter
             return false;
         }
     }
-
+    /**
+     * @param IteratorAggregate $set
+     * @param null          $readableFields
+     * @return mixed
+     */
     public function convertDataObjectSet(
-        DataObjectSet $set,
+        IteratorAggregate $set,
         $readableFields = null
     ) {
         $content = array();
@@ -109,6 +125,9 @@ abstract class FlexibleDataFormatter
 
         return $this->format($content);
     }
-
+    /**
+     * @param array $arr
+     * @return mixed
+     */
     abstract protected function format(array $arr);
 }
