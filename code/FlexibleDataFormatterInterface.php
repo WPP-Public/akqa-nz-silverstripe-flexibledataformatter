@@ -6,11 +6,19 @@
 interface FlexibleDataFormatterInterface extends DataObjectInterface
 {
     /**
-     * @return mixed
+     * @return array
      */
-    public function getReadableFields();
+    public function getAllowedFields();
     /**
-     * @return mixed
+     * @return array
      */
-    public function getDynamicFields();
+    public function getAllowedHasOneRelations();
+    /**
+     * @return array
+     */
+    public function getAllowedHasManyRelations();
+    /**
+     * @return array
+     */
+    public function getAllowedManyManyRelations();
 }
