@@ -84,17 +84,19 @@ abstract class FlexibleDataFormatter
         }
     }
     /**
-     * @param IteratorAggregate $set
+     * @param DataObjectSet $set
      * @return mixed
      */
     public function convertDataObjectSet(
-        IteratorAggregate $set
+        DataObjectSet $set
     ) {
         $content = array();
-        foreach ($set as $obj) {
-            $objContent = $this->convertDataObjectToArray($obj);
-            if (is_array($objContent)) {
-                $content[] = $objContent;
+        if (count($set) > 0) {
+            foreach ($set as $obj) {
+                $objContent = $this->convertDataObjectToArray($obj);
+                if (is_array($objContent)) {
+                    $content[] = $objContent;
+                }
             }
         }
 
