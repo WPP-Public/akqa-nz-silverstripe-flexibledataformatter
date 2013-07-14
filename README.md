@@ -51,3 +51,7 @@ Use standard `phpunit` command
 If you don't have `phpunit` installed globally:
 
 	silverstripe-flexibledataformatters/ $ vendor/bin/phpunit
+	
+##License
+
+Flexible Data Formatters is licensed under an [MIT license](http://heyday.mit-license.org/)
