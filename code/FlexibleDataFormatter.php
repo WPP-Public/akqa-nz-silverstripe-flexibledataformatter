@@ -51,7 +51,7 @@ abstract class FlexibleDataFormatter
 
         foreach ($obj->getAllowedHasManyRelations($config) as $relName) {
             $items = $obj->$relName();
-            if ($items instanceof DataObjectSet && count($items) > 0) {
+            if ($items instanceof SS_List && count($items) > 0) {
                 $content[$relName] = array();
                 foreach ($items as $item) {
                     $content[$relName][] = $this->convertDataObjectToArray($item, $config);
@@ -61,7 +61,7 @@ abstract class FlexibleDataFormatter
 
         foreach ($obj->getAllowedManyManyRelations($config) as $relName) {
             $items = $obj->$relName();
-            if ($items instanceof DataObjectSet && count($items) > 0) {
+            if ($items instanceof SS_List && count($items) > 0) {
                 $content[$relName] = array();
                 foreach ($items as $item) {
                     $content[$relName][] = $this->convertDataObjectToArray($item, $config);
@@ -88,12 +88,12 @@ abstract class FlexibleDataFormatter
         }
     }
     /**
-     * @param DataObjectSet $set
+     * @param SS_List       $set
      * @param array         $config
      * @return mixed
      */
     public function convertDataObjectSet(
-        DataObjectSet $set,
+        SS_List $set,
         $config = array()
     ) {
         $content = array();

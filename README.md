@@ -2,6 +2,8 @@
 
 Provides a way to easily format a selection of a DataObject's fields used in a custom API. This is often useful when creating your own RESTful API that doesn't use SilverStripes `RestfulServer`
 
+For a SilverStripe `2.4` compatible version see the branch `0.2`.
+
 # Installation (with composer)
 
 	$ composer require heyday/silverstripe-flexibledataformatters:~0.1
