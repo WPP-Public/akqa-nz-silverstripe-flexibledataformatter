@@ -22,24 +22,12 @@ class FlexibleJsonDataFormatter extends FlexibleDataFormatter
         }
     }
     /**
-     * @param $json
-     * @return mixed
-     */
-    public function convertStringToArray($json)
-    {
-        if (function_exists('json_decode')) {
-            return json_decode($json, true);
-        } else {
-            return $this->getJsonService()->decode($json);
-        }
-    }
-    /**
-     * @return bool|Services_JSON
+     * @return Services_JSON
      */
     protected function getJsonService()
     {
         if (!$this->jsonService) {
-            require_once SAPPHIRE_PATH . '/thirdparty/json/JSON.php';
+            require_once FRAMEWORK_PATH . '/thirdparty/json/JSON.php';
             $this->jsonService = new Services_JSON();
         }
 

@@ -1,28 +1,37 @@
 <?php
 
-class DummyDataObject extends DataObject implements FlexibleDataFormatterInterface
+class DummyDataObject extends DataObject implements FlexibleDataFormatterInterface, TestOnly
 {
     public static $db = array(
         'Title' => 'Varchar(255)'
     );
-
-    public function getReadableFields()
+    
+    /**
+     * @param array $config
+     * @return mixed
+     */
+    public function getAllowedFields(array $config)
     {
-        return array(
-            'Title',
-            'DynamicField'
-        );
     }
-
-    public function getDynamicFields()
+    /**
+     * @param array $config
+     * @return mixed
+     */
+    public function getAllowedHasOneRelations(array $config)
     {
-        return array(
-            'DynamicField'
-        );
     }
-
-    public function DynamicField()
+    /**
+     * @param array $config
+     * @return mixed
+     */
+    public function getAllowedHasManyRelations(array $config)
     {
-        return 'Test';
+    }
+    /**
+     * @param array $config
+     * @return mixed
+     */
+    public function getAllowedManyManyRelations(array $config)
+    {
     }
 }

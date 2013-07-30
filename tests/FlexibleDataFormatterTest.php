@@ -1,19 +1,45 @@
 <?php
 
 require_once __DIR__ . '/DummyDataObject.php';
-require_once __DIR__ . '/DummyFormatter.php';
 
-class FlexibleDataFormatterTest extends PHPUnit_Framework_TestCase
+class FlexibleDataFormatterTest extends FlexibleDataFormatterBaseTest
 {
+    /**
+     * @return FlexibleDataFormatter
+     */
+    protected function getFormatterStub()
+    {
+        $stub = $this->getMockForAbstractClass('FlexibleDataFormatter');
+        $stub->expects($this->any())
+            ->method('format')
+            ->will($this->returnArgument(0));
+        return $stub;
+    }
+    /**
+     * 
+     */
     public function testConvertDataObjectToArray()
     {
-        $do = new DummyDataObject(
+        $do = $this->getDataObjectStub(
+            array(
+                'getAllowedFields',
+                'DynamicField'
+            ),
             array(
                 'Title' => 'This is a test title',
                 'Something' => 'Not allowed'
             )
         );
-        $formatter = new DummyFormatter;
+
+        $do->expects($this->any())
+            ->method('getAllowedFields')
+            ->will($this->returnValue(array('Title', 'DynamicField')));
+        
+        $do->expects($this->any())
+            ->method('DynamicField')
+            ->will($this->returnValue('Test'));
+        
+        $formatter = $this->getFormatterStub();
         $this->assertEquals(
             array(
                 'Title' => 'This is a test title',
@@ -21,21 +47,55 @@ class FlexibleDataFormatterTest extends PHPUnit_Framework_TestCase
             ),
             $formatter->convertDataObjectToArray($do)
         );
+        
+        $do = $this->getDataObjectStub(
+            array(
+                'getAllowedFields',
+                'DynamicField'
+            ),
+            array(
+                'Title' => 'This is a test title',
+                'Something' => 'Not allowed'
+            )
+        );
+
+        $do->expects($this->any())
+            ->method('getAllowedFields')
+            ->will($this->returnValue(array()));
+
+        $do->expects($this->any())
+            ->method('DynamicField')
+            ->will($this->returnValue('Test'));
+        
         $this->assertEquals(
             array(),
-            $formatter->convertDataObjectToArray($do, array())
+            $formatter->convertDataObjectToArray($do)
         );
     }
 
     public function testConvertDataObject()
     {
-        $do = new DummyDataObject(
+        $do = $this->getDataObjectStub(
+            array(
+                'getAllowedFields',
+                'DynamicField'
+            ),
             array(
                 'Title' => 'This is a test title',
-                'DynamicField' => 'Test'
+                'Something' => 'Not allowed'
             )
         );
-        $formatter = new DummyFormatter;
+
+        $do->expects($this->any())
+            ->method('getAllowedFields')
+            ->will($this->returnValue(array('Title', 'DynamicField')));
+
+        $do->expects($this->any())
+            ->method('DynamicField')
+            ->will($this->returnValue('Test'));
+        
+        $formatter = $this->getFormatterStub();
+        
         $this->assertEquals(
             array(
                 'Title' => 'This is a test title',
@@ -43,31 +103,57 @@ class FlexibleDataFormatterTest extends PHPUnit_Framework_TestCase
             ),
             $formatter->convertDataObject($do)
         );
+        
+        $do = $this->getDataObjectStub(
+            array(
+                'getAllowedFields',
+                'DynamicField'
+            ),
+            array(
+                'Title' => 'This is a test title',
+                'Something' => 'Not allowed'
+            )
+        );
+
+        $do->expects($this->any())
+            ->method('getAllowedFields')
+            ->will($this->returnValue(array()));
+        
         $this->assertEquals(
             array(),
-            $formatter->convertDataObject($do, array())
+            $formatter->convertDataObject($do)
         );
     }
 
     public function testConvertDataObjectSet()
     {
-        $formatter = new DummyFormatter;
-        $dos = new DataObjectSet();
-        $dos->push(
-            new DummyDataObject(
-                array(
-                    'Title' => 'This is a test title',
-                    'DynamicField' => 'Test'
-                )
+        $do = $this->getDataObjectStub(
+            array(
+                'getAllowedFields',
+                'DynamicField'
+            ),
+            array(
+                'Title' => 'This is a test title',
+                'Something' => 'Not allowed'
             )
         );
+
+        $do->expects($this->any())
+            ->method('getAllowedFields')
+            ->will($this->returnValue(array('Title', 'DynamicField')));
+
+        $do->expects($this->any())
+            ->method('DynamicField')
+            ->will($this->returnValue('Test'));
+        
+        
+        $formatter = $this->getFormatterStub();
+        $dos = new ArrayList();
         $dos->push(
-            new DummyDataObject(
-                array(
-                    'Title' => 'This is a test title',
-                    'DynamicField' => 'Test'
-                )
-            )
+            clone $do
+        );
+        $dos->push(
+            clone $do
         );
         $this->assertEquals(
             array(
