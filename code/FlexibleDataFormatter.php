@@ -38,6 +38,9 @@ abstract class FlexibleDataFormatter
                     case 'PrimaryKey':
                         $content[$fieldName] = $obj->$fieldName;
                         break;
+                    case 'HTMLText':
+                        $content[$fieldName] = $fieldValue->forTemplate();
+                        break;
                     default:
                         $content[$fieldName] = $fieldValue->getValue();
                         break;
